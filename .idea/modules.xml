@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/calc.iml" filepath="$PROJECT_DIR$/calc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lambda/lambda.iml" filepath="$PROJECT_DIR$/lambda/lambda.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src2/src2.iml" filepath="$PROJECT_DIR$/src2/src2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src3/src3.iml" filepath="$PROJECT_DIR$/src3/src3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src4/src4.iml" filepath="$PROJECT_DIR$/src4/src4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src5/src5.iml" filepath="$PROJECT_DIR$/src5/src5.iml" />
+    </modules>
+  </component>
+</project>
