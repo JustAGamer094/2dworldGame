@@ -100,8 +100,8 @@ public class worldGen {
     setToLava setLava = () -> {
         for(int x = 0; x < worldSize; x++){
             for(int y = worldHeight - 3; y< worldHeight; y++){
-                if(worldGrid[x][y] == 6){
-                    setBlock.set(x,y,4);
+                if(worldGrid[x][y] == blocks.LAVA.ordinal()){
+                    setBlock.set(x,y,blocks.LAVA.ordinal());
                 }
             }
         }
@@ -111,7 +111,7 @@ public class worldGen {
         for(int x = 0; x < worldSize; x++){
             for(int y = 0; y < worldHeight; y++){
                 double treeChance = Math.random();
-                if(worldGrid[x][y] == 0 && worldGrid[x][y+1] == 3 && treeChance < 0.05){
+                if(worldGrid[x][y] == blocks.SKY.ordinal() && worldGrid[x][y+1] == blocks.GRASS.ordinal() && treeChance < 0.05){
                     worldGrid[x][y] = blocks.TREE.ordinal();
                     generateTree(x,y);
                 }
@@ -134,11 +134,11 @@ public class worldGen {
         double anotherCoinFlip = Math.random();
         if(anotherCoinFlip < 0.35){
             if(coinFlip < 0.5){
-                if(x+1 < worldSize && worldGrid[x+1][y-2] ==0){
+                if(x+1 < worldSize && worldGrid[x+1][y-2] ==blocks.SKY.ordinal()){
                     this.setBlock.set(x+1,y-2,blocks.BEENEST.ordinal());
                 }
             } else {
-                if (x - 1 > 0 && worldGrid[x - 1][y - 2] == 0) {
+                if (x - 1 > 0 && worldGrid[x - 1][y - 2] == blocks.SKY.ordinal()) {
                     this.setBlock.set(x - 1, y - 2, blocks.BEENEST.ordinal());
                 }
             }

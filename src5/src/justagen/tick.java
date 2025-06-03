@@ -34,6 +34,9 @@ public class tick {
                 case "e":
                     player.onEPressed();
                     break;
+                case "r":
+                    player.mine();
+                    break;
                 default:
                     System.out.println("wrong key");
                     break;
@@ -41,7 +44,6 @@ public class tick {
             try {
                 Thread.sleep(50);
                 player.gravity();
-                player.setPlayer();
                 this.worldGen.clear();
                 this.worldGen.displayWorld();
 
