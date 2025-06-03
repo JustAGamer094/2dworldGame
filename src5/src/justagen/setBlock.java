@@ -5,8 +5,8 @@ interface setBlock {
     void set(int x, int y, int blockType);
 }
 @FunctionalInterface
-interface checkBlock{
-    int check(int x, int y);
+interface getBlock{
+    int get(int x, int y);
 }
 
 @FunctionalInterface

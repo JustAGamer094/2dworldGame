@@ -1,4 +1,6 @@
 package justagen;
+import java.util.function.Supplier;
+
 import static justagen.colours.*;
 
 public class worldGen {
@@ -12,7 +14,7 @@ public class worldGen {
         createWorldGrid();
         createLandScape();
 
-        if(getRandom()<0.35 * worldHeight){
+        if(getRandom.get()<0.35 * worldHeight){
         }
     }
 
@@ -28,7 +30,7 @@ public class worldGen {
         for (int sx = 0; sx < worldSize; sx++){
             worldGrid[sx][worldHeight-1] = 2;
         }
-        Runnable randomBedrock = () -> worldGrid[getRandom()][worldHeight-2] = 2;
+        Runnable randomBedrock = () -> worldGrid[getRandom.get()][worldHeight-2] = 2;
         for (int rx = 0; rx < worldSize/2; rx++){
             randomBedrock.run();
         }
@@ -49,8 +51,8 @@ public class worldGen {
         this.fillBox.fill(0,7,5,8,0);
         this.fillBox.fill(0,9,5,9,3);
         this.fillBox.fill(6,8,worldSize,8,3);
-        this.circle.circle(getRandom(),(int)(worldHeight/2 + worldHeight/2*Math.random()),radiusBig,6);
-        this.circle.circle(getRandom(),(int)(worldHeight/2 + worldHeight/2*Math.random()),radiusSmall,6);
+        this.circle.circle(getRandom.get(),(int)(worldHeight/2 + worldHeight/2*Math.random()),radiusBig,6);
+        this.circle.circle(getRandom.get(),(int)(worldHeight/2 + worldHeight/2*Math.random()),radiusSmall,6);
         this.setBedrock();
         this.setLava.setLava();
         this.createTree.setTree();
@@ -59,9 +61,7 @@ public class worldGen {
     public double getDistance(int cx, int x1, int cy, int y1){
         return (Math.pow(cx - x1,2)+Math.pow(cy-y1,2));
     }
-    public int getRandom(){
-        return (int)(worldSize * Math.random());
-    }
+    Supplier<Integer> getRandom = () -> (int)(getWorldSize() * Math.random());
     public int getWorldSize() {
         return worldSize;
     }
@@ -90,24 +90,25 @@ public class worldGen {
     setBlock setBlock = (x, y, blockType) -> {
         worldGrid[x][y] = blockType;
     };
-    checkBlock getBlock =(x,y) -> {
+    getBlock getBlock =(x,y) -> {
         return worldGrid[x][y];
     };
+
     getCharacterFromNumber getChar = (blockType) -> {
-      switch (blockType){
-          case 0: return ANSI_BG_BLUE + "  "  + ANSI_RESET;     // sky
-          case 1: return ANSI_BG_BRIGHT_BLACK + "  " + ANSI_RESET;   // stone
-          case 2: return ANSI_BG_BLACK + "  " + ANSI_RESET;   // bedrock
-          case 3: return ANSI_BG_GREEN + "  " + ANSI_RESET;    //grass
-          case 4: return ANSI_BG_ORANGE + "  " + ANSI_RESET;    //lava
-          case 5: return ANSI_BG_BROWN + "  " + ANSI_RESET;     //tree
-          case 6: return ANSI_BG_WHITE + "  " + ANSI_RESET;     //cave air
-          case 7: return ANSI_BG_DARK_GREEN + "  " + ANSI_RESET;    //leaves
-          case 8: return ANSI_BG_YELLOW + "  " + ANSI_RESET;    //beenest
-          case 9: return ANSI_BG_BRIGHT_YELLOW + "  " + ANSI_RESET;    //sun
-          case 10: return ANSI_BG_WHITE + "P " + ANSI_RESET;    //player
-          default: return "";
-      }
+        switch (blockType){
+            case 0: return blocks.SKY.getPrintedColour();     // sky
+            case 1: return blocks.STONE.getPrintedColour();   // stone
+            case 2: return blocks.BEDROCK.getPrintedColour();   // bedrock
+            case 3: return blocks.GRASS.getPrintedColour();    //grass
+            case 4: return blocks.LAVA.getPrintedColour();    //lava
+            case 5: return blocks.TREE.getPrintedColour();     //tree
+            case 6: return blocks.CAVEAIR.getPrintedColour();     //cave air
+            case 7: return blocks.LEAVES.getPrintedColour();    //leaves
+            case 8: return blocks.BEENEST.getPrintedColour();    //beenest
+            case 9: return blocks.SUN.getPrintedColour();    //sun
+            case 10: return blocks.PLAYER.getPrintedColour();    //player
+            default: return "";
+        }
     };
 
     setToLava setLava = () -> {

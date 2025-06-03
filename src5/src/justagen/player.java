@@ -16,7 +16,7 @@ public class player {
 
 
     public void spawn(){
-        this.backgroundBlockPlayer = worldGen.getBlock.check(this.x, this.y);
+        this.backgroundBlockPlayer = worldGen.getBlock.get(this.x, this.y);
         this.worldGen.worldGrid[this.x][this.y] = 10;
     }
     public void onAPressed(){
@@ -61,29 +61,29 @@ public class player {
     }
     public void onQPressed(){
         int newX = this.x -1;
-        int newY = this.y -2;
-        if(y < worldGen.worldHeight -1 && y > 1){
+        int newY = this.y -1;
+        if(y < worldGen.worldHeight -1 && y > -1 && x < worldGen.worldSize -1 && x > 0){
             if(worldGen.worldGrid[newX][newY] ==0 ) {
                 moveHelper(newX, newY);
-                this.y = this.y - 2;
+                this.y = this.y - 1;
                 this.x = this.x - 1;
             }
         }
     }
     public void onEPressed(){
         int newX = this.x +1;
-        int newY = this.y -2;
-        if(y < worldGen.worldHeight -1 && y > 1){
+        int newY = this.y -1;
+        if(y < worldGen.worldHeight -1 && y > -1 && x < worldGen.worldSize -1 && x > 0){
             if(worldGen.worldGrid[newX][newY] ==0 ) {
                 moveHelper(newX, newY);
-                this.y = this.y - 2;
+                this.y = this.y - 1;
                 this.x = this.x + 1;
             }
         }
     }
     public void moveHelper(int newX, int newY){
         worldGen.setBlock.set(this.x, this.y, this.backgroundBlockPlayer);
-        this.backgroundBlockPlayer = worldGen.getBlock.check(newX, newY);
+        this.backgroundBlockPlayer = worldGen.getBlock.get(newX, newY);
 
     }
 
