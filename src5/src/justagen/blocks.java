@@ -21,7 +21,6 @@ public enum blocks {
         this.printedColour = printedColour;
     }
 
-
     public String getPrintedColour(){
         return printedColour;
     }

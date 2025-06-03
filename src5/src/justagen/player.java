@@ -17,7 +17,7 @@ public class player {
 
     public void spawn(){
         this.backgroundBlockPlayer = worldGen.getBlock.get(this.x, this.y);
-        this.worldGen.worldGrid[this.x][this.y] = 10;
+        this.worldGen.worldGrid[this.x][this.y] = blocks.PLAYER.ordinal();
     }
     public void onAPressed(){
         int newX = this.x -1;

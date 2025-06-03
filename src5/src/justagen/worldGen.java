@@ -22,15 +22,15 @@ public class worldGen {
         worldGrid = new int[worldSize][worldHeight];
         for (int wx = 0; wx < worldSize; wx++){
             for(int wy = 7; wy < worldHeight; wy++){
-                worldGrid[wx][wy] = 1;
+                worldGrid[wx][wy] = blocks.STONE.ordinal();
             }
         }
     }
     public void setBedrock(){
         for (int sx = 0; sx < worldSize; sx++){
-            worldGrid[sx][worldHeight-1] = 2;
+            worldGrid[sx][worldHeight-1] = blocks.BEDROCK.ordinal();
         }
-        Runnable randomBedrock = () -> worldGrid[getRandom.get()][worldHeight-2] = 2;
+        Runnable randomBedrock = () -> worldGrid[getRandom.get()][worldHeight-2] = blocks.BEDROCK.ordinal();
         for (int rx = 0; rx < worldSize/2; rx++){
             randomBedrock.run();
         }
@@ -47,12 +47,12 @@ public class worldGen {
 
     public void createLandScape(){
         this.setSun.set();
-        this.fillBox.fill(0,7,worldSize,7,0);
-        this.fillBox.fill(0,7,5,8,0);
-        this.fillBox.fill(0,9,5,9,3);
-        this.fillBox.fill(6,8,worldSize,8,3);
-        this.circle.circle(getRandom.get(),(int)(worldHeight/2 + worldHeight/2*Math.random()),radiusBig,6);
-        this.circle.circle(getRandom.get(),(int)(worldHeight/2 + worldHeight/2*Math.random()),radiusSmall,6);
+        this.fillBox.fill(0,7,worldSize,7,blocks.SKY.ordinal());
+        this.fillBox.fill(0,7,5,8,blocks.SKY.ordinal());
+        this.fillBox.fill(0,9,5,9,blocks.GRASS.ordinal());
+        this.fillBox.fill(6,8,worldSize,8,blocks.GRASS.ordinal());
+        this.circle.circle(getRandom.get(),(int)(worldHeight/2 + worldHeight/2*Math.random()),radiusBig,blocks.CAVEAIR.ordinal());
+        this.circle.circle(getRandom.get(),(int)(worldHeight/2 + worldHeight/2*Math.random()),radiusSmall,blocks.CAVEAIR.ordinal());
         this.setBedrock();
         this.setLava.setLava();
         this.createTree.setTree();
@@ -62,6 +62,7 @@ public class worldGen {
         return (Math.pow(cx - x1,2)+Math.pow(cy-y1,2));
     }
     Supplier<Integer> getRandom = () -> (int)(getWorldSize() * Math.random());
+
     public int getWorldSize() {
         return worldSize;
     }
@@ -94,22 +95,7 @@ public class worldGen {
         return worldGrid[x][y];
     };
 
-    getCharacterFromNumber getChar = (blockType) -> {
-        switch (blockType){
-            case 0: return blocks.SKY.getPrintedColour();     // sky
-            case 1: return blocks.STONE.getPrintedColour();   // stone
-            case 2: return blocks.BEDROCK.getPrintedColour();   // bedrock
-            case 3: return blocks.GRASS.getPrintedColour();    //grass
-            case 4: return blocks.LAVA.getPrintedColour();    //lava
-            case 5: return blocks.TREE.getPrintedColour();     //tree
-            case 6: return blocks.CAVEAIR.getPrintedColour();     //cave air
-            case 7: return blocks.LEAVES.getPrintedColour();    //leaves
-            case 8: return blocks.BEENEST.getPrintedColour();    //beenest
-            case 9: return blocks.SUN.getPrintedColour();    //sun
-            case 10: return blocks.PLAYER.getPrintedColour();    //player
-            default: return "";
-        }
-    };
+    getCharacterFromNumber getChar = (blockType) -> blocks.values()[blockType].getPrintedColour();
 
     setToLava setLava = () -> {
         for(int x = 0; x < worldSize; x++){
@@ -126,21 +112,21 @@ public class worldGen {
             for(int y = 0; y < worldHeight; y++){
                 double treeChance = Math.random();
                 if(worldGrid[x][y] == 0 && worldGrid[x][y+1] == 3 && treeChance < 0.05){
-                    worldGrid[x][y] = 5;
+                    worldGrid[x][y] = blocks.TREE.ordinal();
                     generateTree(x,y);
                 }
             }
         }
     };
     setSun setSun = () -> {
-        this.fillBox.fill(0,0,1,1,9);
+        this.fillBox.fill(0,0,1,1,blocks.SUN.ordinal());
     };
 
     public void generateTree(int x, int y){
-        this.setBlock.set(x,y-1,5);
-        this.setBlock.set(x,y-2,5);
-        this.fillBox.fill(x-2,y-4,x+2,y-3,7);
-        this.fillBox.fill(x-1,y-6,x+1,y-5,7);
+        this.setBlock.set(x,y-1,blocks.TREE.ordinal());
+        this.setBlock.set(x,y-2,blocks.TREE.ordinal());
+        this.fillBox.fill(x-2,y-4,x+2,y-3,blocks.LEAVES.ordinal());
+        this.fillBox.fill(x-1,y-6,x+1,y-5,blocks.LEAVES.ordinal());
         generateBeeNest(x,y);
     }
     public void  generateBeeNest(int x, int y){
@@ -149,11 +135,11 @@ public class worldGen {
         if(anotherCoinFlip < 0.35){
             if(coinFlip < 0.5){
                 if(x+1 < worldSize && worldGrid[x+1][y-2] ==0){
-                    this.setBlock.set(x+1,y-2,8);
+                    this.setBlock.set(x+1,y-2,blocks.BEENEST.ordinal());
                 }
             } else {
                 if (x - 1 > 0 && worldGrid[x - 1][y - 2] == 0) {
-                    this.setBlock.set(x - 1, y - 2, 8);
+                    this.setBlock.set(x - 1, y - 2, blocks.BEENEST.ordinal());
                 }
             }
         }
