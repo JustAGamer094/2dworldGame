@@ -8,25 +8,38 @@ public class player {
     int backgroundBlockPlayer;
     int facingDirection;
     facingBlock facingBlock;
+    Inventory inventory;
 
-    public player (int initialX, int initialY, int blockType, worldGen worldGen, facingBlock facingBlock){
+    public player (int initialX, int initialY, int blockType, worldGen worldGen, facingBlock facingBlock,Inventory inventory){
         this.x = initialX;
         this.y = initialY;
         this.blockType = blockType;
         this.worldGen = worldGen;
         this.facingBlock = facingBlock;
+        this.inventory = inventory;
     }
 
 
     public void spawn(){
-        this.backgroundBlockPlayer = worldGen.getBlock.get(this.x, this.y);
-        this.worldGen.worldGrid[this.x][this.y] = blocks.PLAYER.ordinal();
+        while(true) {
+            if(worldGen.getBlock.get(this.x,this.y) == blocks.SKY.ordinal()) {
+                this.backgroundBlockPlayer = worldGen.getBlock.get(this.x, this.y);
+                this.worldGen.worldGrid[this.x][this.y] = blocks.PLAYER.ordinal();
+                break;
+            } else{
+                if(this.x > 0){
+                    this.x -=1;
+                } else if (this.x == 0) {
+                    this.x = worldGen.worldSize-1;
+                }
+            }
+        }
     }
     public void onAPressed(){
         int newX = this.x -1;
         int newY = this.y;
         if(x > 0) {
-            if(worldGen.worldGrid[newX][newY] == 0) {
+            if(worldGen.worldGrid[newX][newY] == blocks.SKY.ordinal() || worldGen.worldGrid[newX][newY] == blocks.CAVEAIR.ordinal()) {
                 moveHelper(newX, newY);
             }
         }
@@ -36,7 +49,7 @@ public class player {
         int newX = this.x +1;
         int newY = this.y;
         if(x< worldGen.worldSize -1){
-            if(worldGen.worldGrid[newX][newY] == 0) {
+            if(worldGen.worldGrid[newX][newY] == blocks.SKY.ordinal() || worldGen.worldGrid[newX][newY] == blocks.CAVEAIR.ordinal()) {
                 moveHelper(newX, newY);
             }
         }
@@ -46,7 +59,7 @@ public class player {
         int newX = this.x;
         int newY = this.y -1;
         if(y>0){
-            if(worldGen.worldGrid[newX][newY] == 0) {
+            if(worldGen.worldGrid[newX][newY] == blocks.SKY.ordinal() || worldGen.worldGrid[newX][newY] == blocks.CAVEAIR.ordinal()) {
                 moveHelper(newX, newY);
             }
         }
@@ -56,7 +69,7 @@ public class player {
         int newX = this.x;
         int newY = this.y +1;
         if(y < worldGen.worldHeight -1){
-            if(worldGen.worldGrid[newX][newY] ==0 ) {
+            if(worldGen.worldGrid[newX][newY] == blocks.SKY.ordinal() || worldGen.worldGrid[newX][newY] == blocks.CAVEAIR.ordinal() ) {
                 moveHelper(newX, newY);
             }
         }
@@ -65,8 +78,8 @@ public class player {
     public void onQPressed(){
         int newX = this.x -1;
         int newY = this.y -1;
-        if(y < worldGen.worldHeight -1 && y > -1 && x < worldGen.worldSize -1 && x > 0){
-            if(worldGen.worldGrid[newX][newY] ==0 ) {
+        if(y < worldGen.worldHeight -1 && y > -1 && x <= worldGen.worldSize -1 && x > 0){
+            if(worldGen.worldGrid[newX][newY] == blocks.SKY.ordinal() || worldGen.worldGrid[newX][newY] == blocks.CAVEAIR.ordinal()) {
                 moveHelper(newX, newY);
             }
         }
@@ -75,8 +88,8 @@ public class player {
     public void onEPressed(){
         int newX = this.x +1;
         int newY = this.y -1;
-        if(y < worldGen.worldHeight -1 && y > -1 && x < worldGen.worldSize -1 && x > 0){
-            if(worldGen.worldGrid[newX][newY] ==0 ) {
+        if(y < worldGen.worldHeight -1 && y > -1 && x < worldGen.worldSize -1 && x >= 0){
+            if(worldGen.worldGrid[newX][newY] == blocks.SKY.ordinal() || worldGen.worldGrid[newX][newY] == blocks.CAVEAIR.ordinal()) {
                 moveHelper(newX, newY);
             }
         }
@@ -144,13 +157,16 @@ public class player {
     }
     public void mine(){
         getFacingCoordinates();
-        int targetMineX = this.facingBlock.facingX;
-        int targetMineY = this.facingBlock.facingY;
+        int targetX = this.facingBlock.facingX;
+        int targetY = this.facingBlock.facingY;
+        this.inventory.putToInventory(targetX, targetY);
 
-        if(targetMineX >= 0 && targetMineX < worldGen.worldSize && targetMineY > 0 && targetMineY < worldGen.worldHeight) {
-            int toBeMined = worldGen.getBlock.get(targetMineX, targetMineY);
-            if(toBeMined != blocks.CAVEAIR.ordinal() && toBeMined != blocks.SKY.ordinal() && toBeMined !=blocks.BEDROCK.ordinal() && toBeMined != blocks.PLAYER.ordinal() && toBeMined != blocks.LAVA.ordinal()) {
-                worldGen.setBlock.set(targetMineX, targetMineY, blocks.SKY.ordinal());
+        if(targetX >= 0 && targetX < worldGen.worldSize && targetY > 0 && targetY < worldGen.worldHeight) {
+            int toBeMined = worldGen.getBlock.get(targetX, targetY);
+            if(toBeMined != blocks.CAVEAIR.ordinal() && toBeMined != blocks.SKY.ordinal() &&
+               toBeMined !=blocks.BEDROCK.ordinal() && toBeMined != blocks.PLAYER.ordinal() &&
+               toBeMined != blocks.LAVA.ordinal()) {
+                worldGen.setBlock.set(targetX, targetY, blocks.SKY.ordinal());
             }
         }
     }

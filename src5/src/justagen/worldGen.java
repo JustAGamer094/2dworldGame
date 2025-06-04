@@ -1,8 +1,6 @@
 package justagen;
 import java.util.function.Supplier;
 
-import static justagen.colours.*;
-
 public class worldGen {
     public int[][] worldGrid;
     final int worldSize = 35;
@@ -13,9 +11,6 @@ public class worldGen {
     public worldGen(){
         createWorldGrid();
         createLandScape();
-
-        if(getRandom.get()<0.35 * worldHeight){
-        }
     }
 
     public void createWorldGrid(){
@@ -100,7 +95,7 @@ public class worldGen {
     setToLava setLava = () -> {
         for(int x = 0; x < worldSize; x++){
             for(int y = worldHeight - 3; y< worldHeight; y++){
-                if(worldGrid[x][y] == blocks.LAVA.ordinal()){
+                if(worldGrid[x][y] == blocks.CAVEAIR.ordinal()){
                     setBlock.set(x,y,blocks.LAVA.ordinal());
                 }
             }
