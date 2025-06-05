@@ -15,8 +15,11 @@ public class Inventory {
 
     public void putToInventory(int targetX, int targetY){
         int minedBlock = this.worldGen.getBlock.get(targetX, targetY);
+
         if(minedBlock != blocks.SKY.ordinal() && minedBlock != blocks.CAVEAIR.ordinal() &&
-           minedBlock !=blocks.BEDROCK.ordinal() && minedBlock != blocks.LAVA.ordinal()) {
+           minedBlock !=blocks.BEDROCK.ordinal() && minedBlock != blocks.LAVA.ordinal() &&
+           minedBlock != blocks.BORDERBLOCK.ordinal()){
+
             String blockName = blocks.values()[minedBlock].name();
             this.inventory.put(blockName, inventory.getOrDefault(blockName, 0) + 1);
         }

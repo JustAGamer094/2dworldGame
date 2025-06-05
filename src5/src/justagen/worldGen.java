@@ -87,8 +87,13 @@ public class worldGen {
         worldGrid[x][y] = blockType;
     };
     getBlock getBlock =(x,y) -> {
-        return worldGrid[x][y];
+        if(x >= 0 && x < worldSize && y >= 0 && y < worldHeight) {
+            return worldGrid[x][y];
+        }else{
+            return blocks.BORDERBLOCK.ordinal();
+        }
     };
+
 
     getCharacterFromNumber getChar = (blockType) -> blocks.values()[blockType].getPrintedColour();
 
@@ -107,7 +112,7 @@ public class worldGen {
             for(int y = 0; y < worldHeight; y++){
                 double treeChance = Math.random();
                 if(worldGrid[x][y] == blocks.SKY.ordinal() && worldGrid[x][y+1] == blocks.GRASS.ordinal() && treeChance < 0.05){
-                    worldGrid[x][y] = blocks.TREE.ordinal();
+                    worldGrid[x][y] = blocks.LOG.ordinal();
                     generateTree(x,y);
                 }
             }
@@ -118,8 +123,8 @@ public class worldGen {
     };
 
     public void generateTree(int x, int y){
-        this.setBlock.set(x,y-1,blocks.TREE.ordinal());
-        this.setBlock.set(x,y-2,blocks.TREE.ordinal());
+        this.setBlock.set(x,y-1,blocks.LOG.ordinal());
+        this.setBlock.set(x,y-2,blocks.LOG.ordinal());
         this.fillBox.fill(x-2,y-4,x+2,y-3,blocks.LEAVES.ordinal());
         this.fillBox.fill(x-1,y-6,x+1,y-5,blocks.LEAVES.ordinal());
         generateBeeNest(x,y);

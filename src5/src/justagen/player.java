@@ -165,7 +165,7 @@ public class player {
             int toBeMined = worldGen.getBlock.get(targetX, targetY);
             if(toBeMined != blocks.CAVEAIR.ordinal() && toBeMined != blocks.SKY.ordinal() &&
                toBeMined !=blocks.BEDROCK.ordinal() && toBeMined != blocks.PLAYER.ordinal() &&
-               toBeMined != blocks.LAVA.ordinal()) {
+               toBeMined != blocks.LAVA.ordinal() && toBeMined != blocks.BORDERBLOCK.ordinal()){
                 worldGen.setBlock.set(targetX, targetY, blocks.SKY.ordinal());
             }
         }

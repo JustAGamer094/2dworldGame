@@ -8,12 +8,13 @@ public enum blocks {
     BEDROCK (ANSI_BG_BLACK + "  " + ANSI_RESET),
     GRASS (ANSI_BG_GREEN + "  " + ANSI_RESET),
     LAVA (ANSI_BG_ORANGE + "  " + ANSI_RESET),
-    TREE (ANSI_BG_BROWN + "  " + ANSI_RESET),
+    LOG(ANSI_BG_BROWN + "  " + ANSI_RESET),
     CAVEAIR (ANSI_BG_WHITE + "  " + ANSI_RESET),
     LEAVES (ANSI_BG_DARK_GREEN + "  " + ANSI_RESET),
     BEENEST (ANSI_BG_YELLOW + "  " + ANSI_RESET),
     SUN (ANSI_BG_BRIGHT_YELLOW + "  " + ANSI_RESET),
-    PLAYER (ANSI_BG_WHITE + "P " + ANSI_RESET);
+    PLAYER (ANSI_BG_WHITE + "P " + ANSI_RESET),
+    BORDERBLOCK ("  ");
 
     private String printedColour;
 
