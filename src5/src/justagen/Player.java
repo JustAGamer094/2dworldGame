@@ -29,7 +29,7 @@ public class Player {
 
     public void spawn(){
         while(true) {
-            if(worldGen.getBlock.get(this.x,this.y) == blocks.SKY.ordinal()) {
+            if(worldGen.getBlock.get(this.x,this.y) == blocks.SKY.ordinal() && worldGen.getBlock.get(this.x, this.y+1) == blocks.GRASS.ordinal()) {
                 this.backgroundBlockPlayer = worldGen.getBlock.get(this.x, this.y);
                 this.worldGen.worldGrid[this.x][this.y] = blocks.PLAYER.ordinal();
                 break;

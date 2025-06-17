@@ -64,7 +64,7 @@ public class tick {
 
         facingBlock facingBlock = new facingBlock(10,7);
         Inventory inventory = new Inventory(new HashMap<>(), worldGen);
-        Player player = new Player(10, 7, blocks.PLAYER.ordinal(), worldGen, facingBlock, inventory);
+        Player player = new Player(10, 6, blocks.PLAYER.ordinal(), worldGen, facingBlock, inventory);
         PlaceBlock placeBlock = new PlaceBlock(player,worldGen);
         player.spawn();
         tick worldStart = new tick(worldGen, player, placeBlock);

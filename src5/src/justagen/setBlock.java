@@ -30,8 +30,11 @@ interface setToLava{
 interface generateTree{
     void setTree();
 }
-
 @FunctionalInterface
 interface setSun{
     void set();
+}
+@FunctionalInterface
+interface fixAir{
+    void fix();
 }
