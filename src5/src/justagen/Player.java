@@ -1,6 +1,6 @@
 package justagen;
 
-public class player {
+public class Player {
     int x;
     int y;
     int blockType;
@@ -10,7 +10,14 @@ public class player {
     facingBlock facingBlock;
     Inventory inventory;
 
-    public player (int initialX, int initialY, int blockType, worldGen worldGen, facingBlock facingBlock,Inventory inventory){
+    public Player(
+    int initialX,
+    int initialY,
+    int blockType,
+    worldGen worldGen,
+    facingBlock facingBlock,
+    Inventory inventory){
+
         this.x = initialX;
         this.y = initialY;
         this.blockType = blockType;

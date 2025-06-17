@@ -5,11 +5,13 @@ import java.util.Scanner;
 
 public class tick {
     private worldGen worldGen;
-    private player player;
+    private Player player;
+    private PlaceBlock placeBlock;
 
-    public tick(worldGen worldGen, player player) {
+    public tick(worldGen worldGen, Player player, PlaceBlock placeBlock) {
         this.worldGen = worldGen;
         this.player = player;
+        this.placeBlock = placeBlock;
     }
 
     public void initializeAndStart(Scanner scanner) {
@@ -38,6 +40,9 @@ public class tick {
                 case "r":
                     player.mine();
                     break;
+                case "f":
+                    placeBlock.placeBlock();
+                    break;
                 default:
                     System.out.println("wrong key");
                     break;
@@ -59,9 +64,10 @@ public class tick {
 
         facingBlock facingBlock = new facingBlock(10,7);
         Inventory inventory = new Inventory(new HashMap<>(), worldGen);
-        player player = new player(10, 7, blocks.PLAYER.ordinal(), worldGen, facingBlock, inventory);
+        Player player = new Player(10, 7, blocks.PLAYER.ordinal(), worldGen, facingBlock, inventory);
+        PlaceBlock placeBlock = new PlaceBlock(player,worldGen);
         player.spawn();
-        tick worldStart = new tick(worldGen, player);
+        tick worldStart = new tick(worldGen, player, placeBlock);
         Scanner scanner = new Scanner(System.in);
         worldStart.initializeAndStart(scanner);
     }
