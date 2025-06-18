@@ -142,6 +142,7 @@ public class worldGen {
     };
 
     public void generateTree(int x, int y){
+        if(x-1 >= 0 && x+1 < worldSize){
         if(worldGrid[x-1][y] != blocks.LOG.ordinal() && worldGrid[x+1][y] != blocks.LOG.ordinal()) {
             this.setBlock.set(x, y - 1, blocks.LOG.ordinal());
             this.setBlock.set(x, y - 2, blocks.LOG.ordinal());
@@ -151,6 +152,7 @@ public class worldGen {
         } else {
             setBlock.set(x,y,blocks.SKY.ordinal());
 
+        }
         }
     }
     public void  generateBeeNest(int x, int y){
